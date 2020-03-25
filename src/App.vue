@@ -19,7 +19,7 @@ export default {
   components: {
     Header,
     SideMenu,
-    Main
+    Main,
   }
 }
 
