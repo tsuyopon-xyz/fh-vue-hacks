@@ -36,14 +36,10 @@ App.vueで上記3つを読み込み、
 (機能実装は後回し)
 
 - Button.vue
-- TextBox.vue
+- TextBox.vuez
 - MessageList.vue
 - Message.vue
 
-MessageList.vueで「v-for="n in 10"」のような形で
-10件のMessage.vueを固定で表示する。
-
-Message.vueも固定値をとりあえずは入れておく。
 
 ---
 
