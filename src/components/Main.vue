@@ -9,6 +9,7 @@
 <script>
 import TextBox from './TextBox';
 import MessageList from './MessageList';
+import MessageModel from '../models/Message';
 
 export default {
   components: {
@@ -25,9 +26,25 @@ export default {
       return this.messages.slice().reverse();
     }
   },
+  async created() {
+    const messages = await this.fetchMessages();
+    this.messages = messages;
+  },
   methods: {
     addMessage(message) {
       this.messages.push(message);
+    },
+    async fetchMessages() {
+      let messages = [];
+      try {
+        messages = await MessageModel.fetchMessages();
+      } catch (error) {
+        // 読み込み失敗など、何かしらのエラーが発生したら
+        // ユーザーにデータの取得が失敗したことを知らせる
+        alert(error.message);
+      }
+
+      return messages;
     }
   }
 }

@@ -26,6 +26,17 @@ class Message {
     return model;
   }
 
+  static async fetchMessages() {
+    const collection = await dbMessages.orderBy('date').get();
+    if (collection.empty) {
+      return [];
+    }
+
+    return collection.docs.map(doc => {
+      return this.create(doc.id, doc.data())
+    });
+  }
+
   static create(id, data) {
     return new Message({
       id,
