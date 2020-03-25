@@ -1,71 +1,44 @@
 ## エクササイズ
 
-掲示板アプリを作る
+掲示板アプリとFirebaseを連携する
 
-1. 開発のベース作り
+YouTubeの再生リストで「[Firebase入門](https://www.youtube.com/playlist?list=PLgNEd6Q0CH8E6zHmqsO7EIcqsDEeVD089)」を用意しているので、
 
-以下の5つを行う
-
-- 完成形の動作確認(これから実装するアプリのイメージを把握する)
-- Vue CLIでVueの開発環境の構築
-- 不要なファイルの削除
-- normalize.cssのインストール
-- npm run serveでの動作確認
+そちらで事前にFirebaseの学習している前提で話をすすめる。
+まだFirebaseを触ったことない場合は、まずはFirebase入門の動画を参考に、
+Firebaseと連携するイメージを付けるところから初めていただけたらと思います。
 
 ---
 
-2. コンポーネント作成その1~見た目部分~
+1. Firebaseの環境を整える
 
-以下3つのコンポーネント作成を行う。
-
-- Header.vue
-- SideMenu.vue
-- Main.vue
-
-App.vueで上記3つを読み込み、
-
-- Headerの固定
-- SideMenuの固定
-- Main.vue部分のみ縦にコンテンツが長いとスクロールすることを確認する
-
----
-
-3. コンポーネント作成その2~見た目部分~
-
-以下4つのコンポーネント作成を行う。
-(機能実装は後回し)
-
-- Button.vue
-- TextBox.vuez
-- MessageList.vue
-- Message.vue
+- 【Firebase】掲示板アプリ用のFirebaseプロジェクトを作る
+- 【Firebase】Firestoreの環境を用意する
+- 【Firebase】Webアプリプロジェクトとして作る
+- 【JS】firebaseのライブラリをnpm installする
 
 
----
+2. Firestoreでデータを送信して保存する
 
-4. Main.vue → MessageList.vue → Message.vueのデータの流れを作る
+- src/db/index.jsを作る
+  - Firestore周りの設定を行う
+- src/models/Message.jsを作る
+  - Messasgeクラスとして作り、インスタンス生成時は以下の引数を受け取り、そのままプロパティとしてセットする
+    - id: FireStoreのドキュメントのID(文字列)
+    - body: TextBoxに入力した文字(文字列)
+    - date: 投稿した時間の文字列(文字列)
+  - Firestoreと連携するクラスメソッドを用意する
+    - fetchMessages
+      - Firestoreからデータを取得して、取得したデータを全てMessageインスタンスに変換して返す
+    - save
+      - 投稿ボタンをクリックしたら実行する。投稿後のデータをMessageインスタンスに変換して呼び出し元に返す
 
-- Main.vueでダミーの10件の配列データを作る
-  - 1件1件のデータは「body」「date」プロパティを持ったオブジェクトで、どちらもstring型
-- Main.vueで作った10件のダミーデータをMessageList.vueに渡す
-  - propsの設定とvalidationの実装を行う
-- 3で作ったMessageList.vueの「v-for="n in 10"」の代わりに「v-for="(message, index) in messages"」を使う
-- messageデータをMessageに渡す
 
----
+3. Firestoreに保存されているデータを取得して表示する
+  - Firestoreと連携するクラスメソッドを用意する
+    - fetchMessages
+      - Firestoreからデータを取得して、取得したデータを全てMessageインスタンスに変換して返す
+  - Main.vueの「created」のタイミングでFirebaseからデータを取得する
 
 
-5. Main.vueとTextBox.vueの連携部分を実装する
-
-- TextBox.vueの投稿ボタンをクリックしたときの動作を実装する
-    - TextBox.vue(=子コンポーネント)
-        - 文字入力がない場合(=彼文字列)はalertで1文字以上の入力が必要であることを知らせる
-        - 文字が入力されていたら「body」「date」プロパティを持つオブジェクトを作る
-            - body: 入力した文字をセットする
-            - date: 「new Date().toLocaleString()」結果をセットする
-        - propsで受け取った関数経由で、親(Main.vue)に作成したオブジェクトを渡す
-    - Main.vue(=親コンポーネント)
-        - 4で作ったMessageList.vueに渡すダミーデータを削除する
-        - TextBox.vueから受け取ったオブジェクトをdataの配列messagesに追加する
-        - computedで配列messagesを反転する
-        - 反転したmessagesをMessagesList.vueに渡す
+4. 読み込み中のアイコン表示と、データ0件時の表示を実装する
