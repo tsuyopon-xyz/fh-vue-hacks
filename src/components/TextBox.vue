@@ -8,7 +8,8 @@
     <div class="textbox-button">
       <Button
         title="投稿"
-        :onClick="post"/>
+        :onClick="post"
+        :clickable="canPost"/>
     </div>
   </div>
 </template>
@@ -29,11 +30,13 @@ export default {
   },
   data() {
     return {
-      body: ''
+      body: '',
+      canPost: true
     }
   },
   methods: {
     async post() {
+      this.canPost = false;
       try {
         const message = await MessageModel.save({
           body: this.body
@@ -43,6 +46,8 @@ export default {
       } catch (error) {
         alert(error.message);
       }
+
+      this.canPost = true;
     },
   }
 }
