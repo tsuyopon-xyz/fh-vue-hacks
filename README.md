@@ -10,15 +10,16 @@ Firebaseと連携するイメージを付けるところから初めていただ
 
 ---
 
-1. Firebaseの環境を整える
+## ステップ1. Firebaseの環境を整える
 
 - 【Firebase】掲示板アプリ用のFirebaseプロジェクトを作る
 - 【Firebase】Firestoreの環境を用意する
 - 【Firebase】Webアプリプロジェクトとして作る
 - 【JS】firebaseのライブラリをnpm installする
 
+---
 
-2. Firestoreでデータを送信して保存する
+## ステップ2. Firestoreでデータを送信して保存する
 
 - src/db/index.jsを作る
   - Firestore周りの設定を行う
@@ -32,12 +33,15 @@ Firebaseと連携するイメージを付けるところから初めていただ
       - 投稿ボタンをクリックしたら実行する。投稿後のデータをMessageインスタンスに変換して呼び出し元に返す
 - TextBoxでデータの送信を行う
 
+---
 
-3. Firestoreに保存されているデータを取得して表示する
-  - Firestoreと連携するクラスメソッドを用意する
-    - fetchMessages
-      - Firestoreからデータを取得して、取得したデータを全てMessageインスタンスに変換して返す
-  - Main.vueの「created」のタイミングでFirebaseからデータを取得する
+## ステップ3. Firestoreに保存されているデータを取得して表示する
 
+- Firestoreと連携するクラスメソッドを用意する
+  - fetchMessages
+  - Firestoreからデータを取得して、取得したデータを全てMessageインスタンスに変換して返す
+- Main.vueの「created」のタイミングでFirebaseからデータを取得する
 
-4. ボタン連打阻止、読み込み中のアイコン表示と、データ0件時の表示を実装する(ユーザビリティを改善する実装)
+---
+
+## ステップ4. ボタン連打阻止、読み込み中のアイコン表示と、データ0件時の表示を実装する(ユーザビリティを改善する実装)
