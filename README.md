@@ -19,7 +19,7 @@ Firebaseと連携するイメージを付けるところから初めていただ
 
 ---
 
-## ステップ2. Firestoreでデータを送信して保存する
+## ステップ2. Firestoreにデータを送信して保存する
 
 - src/db/index.jsを作る
   - Firestore周りの設定を行う
